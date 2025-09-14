@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>뷰어</title>
+<style>
+  body { margin:0; font-family:'Arial', sans-serif; background:#000; display:flex; justify-content:center; align-items:center; height:100vh; overflow:hidden; }
+  img { max-width:100%; max-height:100%; }
+  .nav { position:absolute; top:50%; transform:translateY(-50%); font-size:2rem; color:white; background:rgba(0,0,0,0.3); padding:1rem; cursor:pointer; user-select:none; }
+  #prev { left:0; border-radius:0 5px 5px 0; }
+  #next { right:0; border-radius:5px 0 0 5px; }
+</style>
+</head>
+<body>
+<div id="prev" class="nav">&#10094;</div>
+<img id="viewer" src="" alt="페이지">
+<div id="next" class="nav">&#10095;</div>
+
+<script>
+const urlParams = new URLSearchParams(window.location.search);
+const bookKey = urlParams.get('book');
+let currentPage = 0;
+let pages = [];
+
+fetch('data.json')
+  .then(response => response.json())
+  .then(data => {
+    if (!data[bookKey]) { alert('컬렉션이 없습니다.'); return; }
+    pages = data[bookKey].pages;
+    if (pages.length>0) document.getElementById('viewer').src = pages[currentPage];
+  });
+
+document.getElementById('prev').onclick = () => {
+  if(pages.length===0) return;
+  currentPage = (currentPage - 1 + pages.length) % pages.length;
+  document.getElementById('viewer').src = pages[currentPage];
+};
+document.getElementById('next').onclick = () => {
+  if(pages.length===0) return;
+  currentPage = (currentPage + 1) % pages.length;
+  document.getElementById('viewer').src = pages[currentPage];
+};
+</script>
+</body>
+</html>

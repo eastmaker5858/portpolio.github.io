@@ -1,0 +1,18 @@
+{
+  "book1": {
+    "title": "샘플 작품 1",
+    "author": "작가 A",
+    "pages": [
+      "images/book1/1.jpg",
+      "images/book1/2.jpg"
+    ]
+  },
+  "book2": {
+    "title": "샘플 작품 2",
+    "author": "작가 B",
+    "pages": [
+      "images/book2/1.jpg",
+      "images/book2/2.jpg"
+    ]
+  }
+}
